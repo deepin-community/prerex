@@ -1,0 +1,26 @@
+
+Version 6.5.4, 2014-07-19
+
+  Fix configure.ac and edit.c to allow use of libedit.
+
+Version 6.5.3, 2014-04-22
+
+  To satisfy Coverity: more secure tmpfile creation, 
+  check two return values
+
+
+Version 6.5.2, 2013-10-11
+
+   Correct a bug in undoing a mini or text edit.
+   Replaced trailing pointers by pointers-to-pointers.
+
+Version 6.5.1, 2012-05-24
+
+   Use editline if available; readline otherwise.
+   (editline emulation of readline is broken)
+
+
+Version 6.5.0, 2012-05-13
+
+   Revert to readline (available in gnuwin32 repository).
+   Remove references to chmod and /dev/null.

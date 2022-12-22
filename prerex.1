@@ -1,0 +1,460 @@
+.TH PREREX 1 2019-11-15 "prerex-6.8.0" ""
+.SH NAME
+prerex \- interactive editor of prerequisite-chart descriptions 
+.SH SYNOPSIS
+.BR prerex 
+[
+.IR options
+]  [ 
+.IR basefile [ .tex ] 
+[ 
+.IR chartfile [ .tex ] 
+] 
+]
+.SH DESCRIPTION
+.B prerex
+is an interactive program
+for editing prerequisite-chart descriptions in the
+.BR prerex (5)
+format.
+The user does not normally have to
+be familiar with details of the format.  
+The editor supports add, remove, cut-and-paste, and edit operations
+on diagram elements, and vertical or horizontal shifts of a list of specified elements, all the
+elements in a rectangular region, or the entire diagram.  The edited diagram 
+may be saved, re-processed, and viewed in a PDF 
+viewer, without exiting the editor. Alternatively,
+.BR vprerex (1) 
+will open a 
+.BR prerex (1)
+window and display the corresponding PDF file alongside.
+.SH TERMINOLOGY
+A prerequisite chart consists of several
+.I course boxes,
+linked by 
+.I arrows.
+Courses are either
+.I half
+or
+.I full,
+and may be
+.I required 
+or
+.I optional 
+(or neither).
+Each course box contains a course
+.I code
+(upper left corner),
+a course 
+.I title
+(lower half),
+and
+.I timetable
+information
+(upper right corner).
+An arrow is either a
+.I prerequisite 
+(solid),
+a
+.I corequisite 
+(dotted),
+or 
+.I recommended 
+(dashed).
+When a conventional arrow would be inappropriate,
+a
+.I mini 
+course just above a target box may be used.
+A line of text may have been placed anywhere in the chart.
+.PP
+In some implementations of the
+.BR prerex (5)
+format,
+(some) arrows may be curved and by default have non-zero curvature.
+The curvature of individual arrows may be edited
+using the
+.BR prerex (1)
+editor.
+Negative curvatures are supported.
+To modify the default curvature
+(or set it to zero),
+see
+.BR prerex.sty (7).
+.SH COORDINATE SYSTEM
+A conventional two-dimensional
+coordinate system is used to specify the locations of
+diagram elements;
+the
+origin (where
+.I x = 0
+and
+.IR "y = 0" )
+is at the lower-left corner of the diagram.
+For convenience, a coordinate grid is normally displayed in the background while a diagram is
+being edited.
+.PP
+The coordinates of a
+.I box,
+.I mini,
+or
+.I text-line
+are those of its centre point.  
+An
+.I arrow 
+is described by the
+coordinates of the centre points of its source and target boxes/minis/text-lines. 
+
+The notation
+.IB "x0,y0" : "x1,y1"
+denotes all the nodes (course boxes, minis, texts) in the rectangle whose northwest and southeast corners are at
+coordinates
+.IR "x0,y0 " and " x1,y1."
+.SH USAGE
+If 
+.B prerex
+is invoked on one existing file, a back-up copy is made of it, the 
+.I x,y
+coordinate grid is turned on, the file is processed by using
+a system call to
+.BR pdflatex (1),
+and
+then the user gets 
+a command summary and an interactive prompt 
+of the form
+.IP
+.I file.tex>
+.LP
+If no file argument is given on the command line, the user is prompted to supply a
+file name.
+In either case, 
+if the file name provided does not have a 
+.I .tex 
+extension, 
+.I .tex
+is appended to it.
+.PP
+If the 
+.I file.tex 
+file named does 
+.I not 
+already exist, 
+a new "empty" chart file with that name is
+created, and then it is processed as above. 
+.PP
+If a 
+.I second 
+filename is provided, the first filename is treated as the base file of a
+LaTeX document and the second as an included file that contains the 
+.I chart 
+environment to be edited.  This allows more than
+one document to share an included chart file and allows more than one
+chart to be included in a single document.
+.PP
+The user may enter commands at the interactive command prompt as follows:
+.TP 18
+.BI   box   " x,y"
+edit a course box at
+.I x,y, 
+if necessary, creating a new course box there 
+.TP
+.BI  mini   " x,y"   
+edit a mini at
+.I x,y,
+if necessary, creating a new mini there 
+.TP
+.BI text   " x,y"
+edit a text-line at
+.I x,y,
+if necessary, creating a new text-line there 
+.TP
+.BI  arrow  " x0,y0,x1,y1" 
+edit an arrow from
+.I x0,y0 
+to 
+.I x1,y1,
+if necessary, creating a new such arrow 
+.TP
+.BI  cut    " xi,yi ... "          
+(temporarily) remove the box, mini, or text at 
+.I xi,yi                         
+(including arrows into/out of the box/mini/text)
+.TP
+.BI  "paste [" x,y "]"          
+re-insert most recently cut but not yet pasted box, mini, or text at 
+.I x,y                  
+(including arrows into/out of the box/mini/text), or at the original coordinates if 
+.I " x,y"
+omitted
+.TP
+.BI  xchange " x0,y0 x1,y1"
+exchange the box, mini or text at 
+.I x0,y0
+with that at
+.I x1,y1.
+This is implemented as a sequence of two cuts followed by two pastes to the same points.
+.TP
+.BI  "delete [ " x,y "  | " x0,y0,x1,y1 "  | " x0,y0 : x1,y1 " ] "  ...          
+remove the specified boxes, minis, texts, or arrows 
+(including automatically all arrows into/out of each box/mini/text)
+.TP
+.B undo
+undo the most recent editing command (not already undone)
+.TP
+.BI  "shift  [\-]"  s  "  [ " x,y " | " x0,y0 : x1,y1 " ] " ...         
+move specified diagram elements 
+.I x 
+units right [left]; if no elements are specified, the whole diagram is shifted
+.TP
+.BI  "raise [\-]" r   " [ " x,y " | " x0,y0 : x1,y1 " ] " ...
+move specified diagram elements 
+.I y 
+units up [down]; if no elements are specified, the whole diagram is raised 
+.TP
+.B   "write, !"                   
+save to the current
+.I chartfile.tex
+and process the chart by calling
+.BR pdflatex (1)
+on the base file.
+.TP
+.B  "quit, exit, x, ^D"                  
+turn off the coordinate grid, restore write-access, save to the current
+.I chartfile.tex,
+process the base file and exit.  
+.TP
+.BI  ! cmd            
+restore write access to 
+.I chartfile.tex, 
+execute shell command
+.I cmd,
+re-load and re-process 
+the base file
+(in case the command changed anything),
+and remove write-access.  
+.TP
+.B "Backup"
+copy the current
+.I chartfile.tex
+to the back-up file
+.IR .chartfile.tex; 
+equivalent to
+.BI !cp " chartfile.tex .chartfile.tex"
+.TP
+.B "Restore"
+delete the current 
+.I chartfile.tex 
+and editing buffer, and replace them using the current back-up
+in
+.I .chartfile.tex.
+.TP 
+.BR grid  " [y/n]"
+turn on/off coordinate-grid background         
+.TP
+.BR  "help, ?"
+print a command summary                             
+.LP
+After most editing commands, the editing buffer is automatically
+saved to
+.I chartfile.tex
+and the basefile is processed; the 
+.B cut
+and
+.B paste
+commands are exceptions: saving and processing
+take place only when all outstanding cuts have been pasted.  
+Saving
+and processing
+can be 
+.I forced 
+by using the
+.B write 
+(or 
+.BR ! ) 
+command,
+or 
+.I suppressed 
+for 
+all commands (except
+.BR write 
+and
+.BR ! )
+by appending a ";" to the command immediately prior to entering it.
+To exit the editor
+.I without
+saving to the current
+.IR chartfile.tex ,
+use 
+.B quit; 
+(.i.e., 
+.B quit
+followed by a semi-colon) or a similar combination.
+Starting in Version 3.8,
+.B ^C
+and other interrupts
+result in the editing buffer being saved to
+.I chartfile.tex
+before the editor is exited.
+.SH OPTIONS
+.TP 8
+.BR -v 
+output program name and version number, and quit
+.TP
+.BR -h
+output usage summary and quit
+.SH NOTES
+The main difference between 
+.B mini 
+and 
+.B text 
+is in the maximum lengths for the text displayed; the latter allows a full line of text, not 
+merely a course code. Also a text-line does not have an associated URI (when
+the grid is off). The text "line" may actually
+be displayed as a paragraph by using a LaTeX \\parbox.
+.PP
+To save the current state of 
+.I chartfile.tex, 
+use 
+.B Backup
+or a comparable shell command.
+A history list
+of interpreted commands
+is maintained and is accessible using the up-arrow key.
+.PP
+If 
+processing of the chart fails, 
+.B prerex
+will attempt to display the LaTeX error message from the log file. 
+The chart file 
+can be fixed using a conventional text editor or LaTeX-oriented  editor.
+LaTeX processing should fail only if there is an initial problem
+or if ill-formed LaTeX markup has been inserted into a text field.
+.PP
+Any (non-empty) prefix of a command suffices; for example,
+.BR q ,
+.BR qu ,
+or
+.B qui 
+may
+be used instead of
+.BR quit .
+Some of the commands will begin a dialogue with the user in
+order to fill in or modify
+properties; the prompts should be self-explanatory.  
+.PP
+Since version 5.5,
+.B prerex
+no longer automatically calls a PDF viewer (because it may be embedded in an
+instance of
+.BR vprerex (1)
+which already provides a PDF display). If 
+.B prerex 
+is being used by itself, a PDF viewer may be invoked using the
+.BI ! cmd
+shell-escape
+mechanism.
+Also,
+.B prerex
+no longer interacts with the user until a PDF file is available; this is for use
+with
+.BR vprerex (1).  
+For example, if the .tex file is initially read-only, 
+.B prerex
+aborts.
+.SH FILES
+A LaTeX style file 
+.BR prerex.sty (7) 
+that implements
+the macro calls defined by the 
+.BR prerex (5)
+format must be available to
+.BR [pdf]latex (1)
+to
+process the chart file.
+Before any editing is allowed, 
+.I chartfile.tex
+is copied to 
+.I .chartfile.tex
+as a backup.
+.SH ENVIRONMENT
+.PP
+The most convenient viewing program to use with
+.B prerex
+is one like
+.BR gv (1),
+.BR gsview (1), 
+.BR kghostview(1),
+.BR kpdf (1)
+or
+.BR okular (1)
+that may be configured to "watch" the pdf file and re-load the display automatically when the file changes.
+.BR evince (1)
+has a Reload button and
+.BR xpdf (1)
+supports re-loading using the keystroke "R", but 
+re-loading is much less convenient with
+.BR acroread (1)
+and
+.BR gpdf (1),
+which
+may have to be re-started.
+.PP
+Recent versions of some PDF viewers show the URIs of hyperlinks in a tooltip or in the status bar;
+this mechanism is
+used by some implementations of 
+.BR prerex.sty (7)
+to allow display of the coordinates of a box, mini, text-line, or arrow when the mouse hovers over it
+(while the coordinate grid is on and the relevant chart file is presumably being edited).
+.PP
+The 
+.B prerex
+package at 
+.B http://www.ctan.org/tex-archive/graphics/prerex/
+has source code for
+.BR vprerex (1),
+a GUI front-end for 
+.B prerex
+which is prerex-enabled.
+.SH BUGS
+.B prerex 
+analyzes chart files without using TeX; thus,
+macro calls are 
+.I not
+expanded, and
+anything in the chart file before or after the (first)
+.B "\ebegin{chart} ... \eend{chart}" 
+environment
+is ignored (but preserved) by the editor.
+Lines that begin with "%" within the chart environment are 
+preserved but other comments within the chart environment are
+.I not
+preserved and may interfere with command parsing.
+.PP
+From  version 5.6,
+.B prerex
+no longer supports the latex -> dvips -> ps2pdf toolchain as an option.
+.SH AUTHOR
+R. D. Tennent (rdt@cs.queensu.ca)
+.SH DEPENDENCIES
+.B prerex
+uses the  
+.BR editline (3)
+library if available and the GNU
+.BR readline (3)
+and
+.BR history (3)
+libraries otherwise.
+.SH SEE ALSO
+.BR acroread (1), 
+.BR evince (1), 
+.BR gpdf (1),
+.BR gsview (1), 
+.BR gv (1), 
+.BR kghostview (1),
+.BR kpdf (1), 
+.BR okular (1),
+.BR pdflatex (1),
+.BR prerex (5),
+.BR prerex.sty (7),
+.BR previewer (1),
+.BR vprerex (1),
+.BR xpdf (1).

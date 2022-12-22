@@ -1,0 +1,17 @@
+Prerex is an interactive program for editing prerequisite-chart
+descriptions in the prerex format. The user does not normally have to be
+familiar with details of the format. The editor supports add, remove,
+cut-and-paste, and edit operations on diagram elements, and horizontal
+or vertical shifts of a list of specified elements, all the elements in
+a rectangular region, or the entire diagram. The edited diagram may be
+saved, re-processed, and viewed in a PDF viewer, without exiting the
+editor.
+
+The effects of editing operations may be observed in any PDF viewer. The
+"vprerex" (visual prerex) application (not included here) is a graphical
+front-end and viewer for the prerex editor. It may be used just as a
+minimalist viewer of arbitrary PDF files but supports editing of charts
+generated using prerex.sty by allowing coordinates of course boxes,
+arrows, and background points to be conveyed over to the prerex editor
+command-line using the clipboard.
+

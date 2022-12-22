@@ -1,0 +1,45 @@
+This work was packaged for Debian by:
+
+    Ryan Kavanagh <ryanakca@kubuntu.org> on Wed, 14 Sep 2011 08:31:45 2011 -0400
+
+It was originally downloaded from:
+
+    ftp://linus.cs.queensu.ca/prerex/
+
+It is currently downloaded from:
+
+    https://ctan.org/tex-archive/graphics/prerex
+
+Upstream Author:
+
+    R. D. Tennent <rdt@cs.queensu.ca>
+
+Copyright:
+
+    Copyright (C) 2006-2019 R. D. Tennent <rdt@cs.queensu.ca>
+
+License:
+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+  
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+  
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+  
+On Debian systems, the complete text of the GNU General
+Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+The Debian packaging is:
+
+    Copyright (C) 2011–2020 Ryan Kavanagh <rak@debian.org>
+
+you can redistribute it and/or modify it under the terms of the GNU General
+Public License as published by the Free Software Foundation; either version 2 of
+the License, or (at your option) any later version.

@@ -1,0 +1,35 @@
+Source: prerex
+Section: tex
+Priority: optional
+Maintainer: Ryan Kavanagh <rak@debian.org>
+Build-Depends: debhelper-compat (= 13)
+ , dpkg-dev (>= 1.16.1~)
+ , libncurses-dev
+ , libedit-dev
+ , pkg-config
+Standards-Version: 4.5.0
+Homepage: http://www.ctan.org/tex-archive/graphics/prerex
+Vcs-Git: https://salsa.debian.org/debian/prerex.git -b prerex
+Vcs-Browser: https://salsa.debian.org/debian/prerex
+
+Package: prerex
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ texlive-pictures (>> 2017.20171128-1)
+Suggests: vprerex
+Description: course prerequisite chart editor for LaTeX/TikZ
+ prerex is an editor for creating esthetically pleasing course prerequisite
+ charts using the TikZ LaTeX package.
+ .
+ The editor supports add, remove, cut-and-paste, and edit operations on
+ diagram elements, and shifts of a list of specified elements or the
+ entire diagram. The edited diagram may be saved, re-processed, and viewed in
+ a PDF viewer, without exiting the editor.
+ .
+ Course prerequisite charts allow students to easily determine which
+ prerequisites, corequisites and recommended prerequisites they need for a
+ given course and their time slots. Course prerequisite charts also highlight
+ the courses required by a degree.
+ .
+ prerex is used by departments in several universities, including Queen's
+ University and Suffolk University.

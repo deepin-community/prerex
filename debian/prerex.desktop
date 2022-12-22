@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=prerex
+GenericName=Prerequisite Chart Editor
+GenericName[fr]=Éditeur de diagrammes de prérequis
+Comment=Edit course prerequisite charts
+Comment[fr]=Édite des diagrammes de prérequis de cours
+Exec=prerex
+Terminal=true
+Type=Application
+Categories=Office;Chart;ConsoleOnly;
+Keywords=diagram;tikz;latex;

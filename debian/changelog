@@ -1,0 +1,100 @@
+prerex (6.8.0-1) unstable; urgency=medium
+
+  * New upstream version 6.8.0
+  * Specify that we use the prerex branch in Vcs-Git
+  * Set Vcs-* to point to salsa
+  * Update copyright years
+  * Set compat to 13
+  * Bump standards version to 4.5.0
+
+ -- Ryan Kavanagh <rak@debian.org>  Sun, 17 May 2020 16:32:53 -0400
+
+prerex (6.5.4-1) unstable; urgency=medium
+
+  * New upstream release
+    + We now only provide the readline utility. The vprerex binary package has
+      been forked off to its own source package, and texlive-pictures is now
+      providing our LaTeX package and documentation.
+    + Drop 01_libedit.diff: applied upstream
+  * Updated watch file to point to CTAN
+  * Added a gbp.conf
+  * Prerex only suggests vprerex now (Closes: #768074)
+  * Bump standards version to 4.1.3
+  * Dropped menu files
+  * Make Vcs-* URLs secure
+  * Updated copyright file
+  * Drop MimeType field from desktop file: it makes no sense in our context
+  * Override desktop-entry-lacks-icon-entry for prerex: it has no icon
+  * Completely turn on hardening flags
+  * Use debhelper >= 11, compat to 11, and drop dependency on dh-autoreconf,
+    since it is automatically run under compat level >= 10.
+
+ -- Ryan Kavanagh <rak@debian.org>  Tue, 02 Jan 2018 12:23:39 -0500
+
+prerex (6.5.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * Updated 01_libedit.diff to match current upstream
+  * Update copyright years and delete old copyright blurb about embedded
+    libedit
+  * Bump standards version
+  * Update Vcs-* fields to canonical locations
+  * Drop hardening-wrapper and switch to dpkg-buildflags via dpkg-dev;
+    hardening-wrapper is obsolete
+  * Tidy up debian/rules and explicitly call qmake-qt4 to avoid problems with
+    qmake defaulting to qmake-qt5
+  * Add Keywords entries to desktop files
+
+ -- Ryan Kavanagh <rak@debian.org>  Wed, 16 Jul 2014 19:21:31 +0200
+
+prerex (6.4.0-3) unstable; urgency=low
+
+  * Explicitly Build-Depend on pkg-config (Closes: #675494)
+  * Bump debhelper version to >= 9.0.0 and compat level to 9, and
+    build-depend on hardening-wrapper for build-hardening magic
+
+ -- Ryan Kavanagh <rak@debian.org>  Tue, 12 Jun 2012 08:43:33 -0400
+
+prerex (6.4.0-2) unstable; urgency=low
+
+  * Use system libedit instead of bundled libedit, no longer install bundled
+    libedit. 01_libedit.diff (Closes: #670893)
+    + We need dh-autoreconf to refresh after patching autotools stuff
+    + Build-Depend on libedit-dev now, not libreadline-dev
+  * Added missing copyright holders to copyright file
+
+ -- Ryan Kavanagh <rak@debian.org>  Tue, 08 May 2012 09:30:18 -0400
+
+prerex (6.4.0-1) unstable; urgency=low
+
+  * Imported Upstream version 6.4.0 (prerex and vprerex both version 6.4.0)
+    - Fixes FTBFS with GCC-4.7 (Closes: #667331)
+    - Drop 01_whatis_prerex_5.diff, applied upstream
+  * Install upstream changelogs
+  * Bump standards version to 3.9.3
+
+ -- Ryan Kavanagh <rak@debian.org>  Fri, 27 Apr 2012 11:02:34 -0400
+
+prerex (6.2-6.3.1-2) unstable; urgency=low
+
+  * Use dh_installtex instead of manually calling mktexslr (Closes: #660454)
+    - Add required dependency on tex-common
+
+ -- Ryan Kavanagh <rak@debian.org>  Tue, 21 Feb 2012 21:22:14 -0500
+
+prerex (6.2-6.3.1-1) unstable; urgency=low
+
+  * New upstream release (prerex version 6.2, vprerex version 6.3.1)
+  * Update vprerex long description at Bob's request
+  * Don't hardcode paths in clean target
+  * Include the packaging's license details
+  * Add missing Depends on xterm to vprerex
+  * Added menu and .desktop files
+
+ -- Ryan Kavanagh <rak@debian.org>  Tue, 03 Jan 2012 13:48:28 -0500
+
+prerex (6.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #646959)
+
+ -- Ryan Kavanagh <ryanakca@kubuntu.org>  Wed, 14 Sep 2011 08:33:30 -0400

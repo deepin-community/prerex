@@ -1,0 +1,335 @@
+Version 6.8.0, 2019-11-15
+
+  Allow for negative curvatures.
+
+Version 6.5.4, 2014-07-19
+
+  Fix configure.ac and edit.c to allow use of libedit.
+
+Version 6.5.3, 2014-04-22
+
+  To satisfy Coverity: more secure tmpfile creation, 
+  check two return values
+
+Version 6.5.2, 2013-10-11
+
+   Correct a bug in undoing a mini or text edit.
+   Replaced trailing pointers by pointers-to-pointers.
+
+Version 6.5.1, 2012-05-24
+
+   Use editline if available; readline otherwise.
+   (editline emulation of readline is broken)
+
+Version 6.5.0, 2012-05-13
+
+   Revert to readline (available in gnuwin32 repository).
+   Remove references to chmod and /dev/null.
+
+Version 6.4.2, 2012-04-18
+
+  Revert to editline using native libedit.so.
+
+Version 6.4.1, 2012-04-17
+
+  Revert to readline (libedit doesn't build on Cygwin).
+
+Version 6.4.0, 2012-04-12
+
+  Switch from (system) readline to (embedded) editline (libedit).
+
+Version 6.3.2, 2012-03-28
+
+  Support coordinate ranges for delete, shift, raise commands.
+  Multiple-step commands undone atomically.
+
+Version 6.3.1, 2012-03-26
+
+  Support xchange command.
+  Display new coordinates of shifted/raised nodes for subsequent raise/shift.
+
+Version 6.3, 2012-03-21
+
+  Support opt course boxes.
+
+Version 6.2.1, 2012-03-18
+
+  Allow multiple coordinate pairs in cut command.
+
+Version 6.2, 2011-09-08
+
+  Replace undelete command by a general multi-level undo command.
+  Default for undoing paste command is to re-insert at the original coordinates.
+
+Version 6.1.1, 2011-08-20
+
+  Fixed missing else which resulted in re-reading ...coursec commands.
+  Better prompt for background color of a course box.
+  Better error message if more than one node at a point.
+
+Version 6.1.0, 2011-08-18
+
+  Deal with commands \halfcoursec etc. that allow background-color 
+  specification.
+
+Version 6.0.4, 2011-07-27
+
+  Deleted prerex_LDFLAGS from src/Makefile.am.
+
+Version 6.0.3, 2010-07-04
+
+  Use only one of ncurses/termcap.
+
+Version 6.0.2, 2010-06-29
+
+  Deleted reference to stdbool.h.
+  Modified configuration scripts to allow for readline using ncurses/termcap.
+
+Version 6.0.1, 2010-06-28
+
+  Modified configuration scripts to allow building on OpenSUSE (and Ubuntu?)
+
+Version 6.0, 2010-06-25
+
+  Allow long options --help and --version.
+  Using autoconf/automake.
+
+Version 5.8, 2010-04-10
+
+  Suppress ".tex" in the prompt.
+
+Version 5.7, 2010-04-05
+
+  Delete command can now delete more than one element/arrow.
+  Turning off all pdflatex output.
+
+Version 5.6.1, 2010-03-26
+
+  Open tex_file for writing before restoring from backup.
+
+Version 5.6, 2010-03-25
+
+  Modified chmod system calls to be compatible with cygwin on Windows fat32.
+  Closing the tex_file before processing it (needed for Windows).
+  Simplified the log-output generation if processing fails.
+  Always use pdflatex because of automatic rotation in ps2pdf.
+
+Version 5.5, 2010-03-16
+
+  Added sleep(1) between initial generations of the pdf file.
+  Removed all interactions before initial generation of pdf file.
+  Removed the option of opening another tex file.
+  Removed the automatic start-up of PDFVIEWER.
+  Added PRIVATE (i.e., static) specifiers where appropriate.
+
+Version 5.4, 2009-11-12
+
+  Must re-open tex_file to regenerate it (!)
+
+Version 5.3, 2009-10-30
+
+  Use ps2pdf without attempting rotation correction when using latex,
+    but, to allow for a script that tests for "Orientation: Landscape" in the ps file,
+    if the environment variable PS2PDF is defined, its value is used in lieu of ps2pdf.
+
+  Offer to quit if the user won't provide a file name.
+
+  Allow for PAGER == most.
+
+  Code clean-up, especially localizing many globals.
+
+Version 5.2, 2009-10-19
+
+  Corrected coding for new file name in open_tex_file.
+
+Version 5.1, 2009-10-01
+
+  Final processing no longer automatically uses LaTeX.
+
+Version 5.0, 2009-09-15
+
+  Replaced filename by basefilename and chartfilename to allow more than
+  one document to share an included chart file and allow more than one
+  chart to be included in a document.  The *file* command has been removed.
+
+Version 4.3, 2009-09-06
+
+  Replaced strlcpy and strlcpy by append (with offset).
+  Introduced triv_type to avoid a "pedantic" error.
+  Corrected an incorrect sizeof argument in open_tex_file.
+  Call regenerate_and_process after a partial raise.
+
+Version 4.2, 2008-07-17
+
+  Use the /Orientation directive to gs (ghostscript) to ensure proper orientation
+  when slanted fonts are used.
+
+Version 4.1, 2008-05-16
+
+  Implement shift/raise of specified diagram elements.
+  Eliminate unnecessary dependence on libtermcap.
+
+Version 4.0.1, 2008-02-28
+
+  Corrected txt field of struct text to have size LINE_LEN+1
+
+Version 4.0, 2008-02-13
+
+  Test for curvatures > 100.
+  Implement \text command.
+
+Version 3.8.1, 2007-03-17
+
+  Sleep for KILL_WAIT seconds before terminating the pdf viewer.
+
+Version I.8, 2007-02-08
+
+  Semicolon appended to most user commands suppresses regeneration and reprocessing.
+  ^C saves to file.tex. Use quit; to exit without saving.
+  Final processing uses latex -> dvips -> ps2pdf to produce a smaller final pdf.
+  Attempts to display the pdf during editing using value of environment variable 
+    PDFVIEWER. 
+
+Version 3.7, 2006-12-27
+
+  latex->dvips->ps2pdf processing restored as an option.
+  Warns about quitting with unpasted cuts.
+
+Version 3.6, 2006-11-29
+
+  Corrects two minor logical errors in code for arrow deletion and box editing. 
+  Generates progress messages when analyzing/saving/processing.
+  Re-loads after every shell escape, so we can discard the Edit command.
+  Applies shift/raise to cut and deleted nodes.
+  Processes tex files using pdflatex instead of latex -> dvips -> ps2pdf.
+
+Version 3.5, 2006-11-20
+  
+  simpler and more flexible implementation of cut/paste, delete/undelete
+  generate undelete messages
+  automatic re-generation and processing after editing operation
+
+Version 3.4, 2006-11-15
+
+  deal with files that are (initially) read-only
+  deal with attempts to cut arrows
+
+Version 3.3, 2006-11-07
+
+  preserve comment lines within the chart environment
+  correct option-handling bug introduced in 3.0
+
+Version 3.2, 2006-11-03
+Version 3.1, 2006-10-29
+
+  introduce Edit command
+  restore write-access to TeX file during Edit or shell-command execution
+  try to display error message in log file if LaTeX processing fails
+
+Version 3.0, 2006-10-19
+
+  replaced calls to make file.pdf by successive calls to latex, dvips, ps2pdf
+  removed all references to pdf viewer, user must start one him/herself
+  replaced strncpy/cat by strlcpy/cat (my implementation of the OpenBSD functions)
+  produce warning message for truncated course code, timetable, title
+
+Version 2.4, 2006-04-12
+
+  added undelete command
+  no warnings using -Wall -Wextra
+  allow for cut/paste of minis that are targets of arrow
+  test for non-existence of source/target box/mini for new arrow
+  handle more signals than SIGINT (such as SIGSEGV)
+
+Version 2.3, 2006-03-23
+
+  remove "which" checking of pdfviewer to allow, e.g., xpdf -remote label
+  use geometry.sty for new blank TeX file
+  declarations of optarg, optind moved to prerex.h
+
+Version 2.2.2, 2006-03-08
+
+  Free linked structures and readline strings.
+  Turn grid off initially before restoring a backup.
+
+Version 2.2.1, 2006-02-18
+
+  Don't try to remove/restore access to an empty filename.
+
+Version 2.2, 2006-02-15
+
+  Inputs and outputs \begin{chart} ... \end{chart} instead of \chart{ ... }
+
+Version 2.1.1, 2006-02-13
+
+  Add designation PRIVATE ( = static) to definitions of functions and variables.
+
+Version 2.1, 2006-02-09
+
+  Trap SIGINT in order to restore write-access after ^C.
+  Add Backup command.
+
+Version 2.0.3, 2006-02-07
+
+  New arrow should have default curvature.
+
+Version 2.0.1, 2006-02-06
+
+ Free list structures before Restoring.
+
+Version 2.0, 2006-02-03
+
+  Partition into separate modules prerex.c, inout.c, edit.c
+
+Version 1.2.2, 2006-02-02
+
+  Cleanup curvature code.
+  Use %s to output % in regenerate_tex_file.
+
+Version 1.2.1, 2006-02-02
+
+  Allow for curved recommended and co-requisite arrows.
+
+Version 1.2.0, 2006-02-01
+
+  Restore command.
+
+Version 1.1.2, 2006-01-31
+
+  Create backup of Tex file before editing.
+  Re-open TeX file for writing before regenerating.
+
+Version 1.1.1, 2006-01-30
+
+  TeX file read-only during editing (except when re-generating it).
+
+Version 1.1.0, 2006-01-29
+
+  Corrected use of cut stacks.
+  Eliminated cut arrow command.
+  Introduced delete box/mini and delete arrow.
+  Checked for duplicate boxes, minis or arrows (e.g., when pasting).
+
+Version 1.0.5, 2006-01-28
+
+  Keep stacks of cut boxes, minis, and arrows.
+
+Version 1.0.4, 2006-01-27
+
+  Add option -p.
+
+Version 1.0.3, 2006-01-26
+
+  Replace system calls to "xpdf" by calls to pdfviewer (if defined).
+
+Version 1.0.2, 2006-01-25
+
+  Replace system call to "pdflatex filename" by call to "make filename.pdf"
+    to provide more flexibility (e.g., LaTeX vs pdfLaTeX).
+
+Version 1.0.1, 2006-01-24
+  Error message for pdflatex failure now refers to filename.log.
+  Inserted checks for lp or cp increasing too far in read_textfield 
+    and read_bracketed_textfield.
+  Process TeX file before analyzing it (as a syntax sanity pre-check).
+  Defer arrow output if source box not previously output.
